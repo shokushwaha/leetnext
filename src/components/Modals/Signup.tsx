@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { auth, firestore } from "@/firebase/firebase";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useRouter } from 'next/router';
+import { doc, setDoc } from 'firebase/firestore';
+import { toast } from 'react-toastify';
 type Props = {}
 
 function Signup({ }: Props) {
@@ -25,16 +27,36 @@ function Signup({ }: Props) {
 
     const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('calling')
+
         if (!inputs.email || !inputs.password || !inputs.displayName) return alert("Please fill all fields");
         try {
+            toast.loading("Registering....", { position: "top-center", toastId: "loadingToast" });
             const newUser = await createUserWithEmailAndPassword(inputs.email, inputs.password);
             if (!newUser)
                 return;
+
+            const userData = {
+                uid: newUser.user.uid,
+                email: newUser.user.email,
+                displayName: inputs.displayName,
+                createdAt: Date.now(),
+                updatedAt: Date.now(),
+                likedProblems: [],
+                dislikedProblems: [],
+                solvedProblems: [],
+                starredProblems: [],
+            };
+
+            await setDoc(doc(firestore, "users", newUser.user.uid), userData);
+
             router.push('/');
 
         } catch (error: any) {
-            alert(error.message);
+            toast.error(error.message, { position: "top-center", autoClose: 2000, toastId: "errorToast" })
+        }
+        finally {
+            toast.dismiss("loadingToast");
+            toast.success("Registered successfully!", { autoClose: 1000 });
         }
 
     }

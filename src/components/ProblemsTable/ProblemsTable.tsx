@@ -1,14 +1,16 @@
-// import React from 'react';
 import { useState, useEffect, FC } from 'react';
-import { problems } from '@/mockProblems/problems';
 import Link from 'next/link';
 import YouTube from "react-youtube";
 import { IoClose } from 'react-icons/io5'
+import { collection, doc, getDoc, getDocs, orderBy, query } from "firebase/firestore";
+import { auth, firestore } from "@/firebase/firebase";
+import { DBProblem } from "@/utils/types/problem";
+import { toast } from 'react-toastify';
 type ProblemsTableProps = {
-
+    setLoadingProblems: React.Dispatch<React.SetStateAction<boolean>>
 };
 
-const ProblemsTable: FC<ProblemsTableProps> = () => {
+const ProblemsTable: FC<ProblemsTableProps> = ({ setLoadingProblems }) => {
     const [youtubePlayer, setYoutubePlayer] = useState({
         isOpen: false,
         videoId: "",
@@ -25,6 +27,8 @@ const ProblemsTable: FC<ProblemsTableProps> = () => {
         return () => window.removeEventListener("keydown", handleEsc);
     }, []);
 
+
+    const problems = useGetProblems(setLoadingProblems);
     return (
         <>
 
@@ -41,12 +45,22 @@ const ProblemsTable: FC<ProblemsTableProps> = () => {
 
                             </th>
                             <td className='px-6 py-4 text-black font-bold ' >
-                                <Link
-                                    className='hover:text-blue-600 cursor-pointer'
-                                    href={`/problems/${problem.id}`}
-                                >
-                                    {problem.title}
-                                </Link>
+                                {problem.link === "" ? (
+                                    <div
+
+                                        className='text-gray-400 hover:cursor-pointer'
+                                        onClick={() => { toast("Link coming soon!"), { autoClose: 1000 } }}
+                                    >
+                                        {problem.title}
+                                    </div>
+                                ) : (
+                                    <Link
+                                        className='hover:text-blue-600 cursor-pointer'
+                                        href={`/problems/${problem.id}`}
+                                    >
+                                        {problem.title}
+                                    </Link>
+                                )}
 
                             </td>
                             <td className={`px-6 py-4 text-black font-semibold ${difficultoColor}`}>{problem.difficulty}</td>
@@ -97,3 +111,25 @@ const ProblemsTable: FC<ProblemsTableProps> = () => {
     )
 }
 export default ProblemsTable;
+
+
+function useGetProblems(setLoadingProblems: React.Dispatch<React.SetStateAction<boolean>>) {
+    const [problems, setProblems] = useState<DBProblem[]>([]);
+
+    useEffect(() => {
+        const getProblems = async () => {
+            setLoadingProblems(true);
+            const q = query(collection(firestore, "problems"), orderBy("order", "asc"));
+            const querySnapshot = await getDocs(q);
+            const tmp: DBProblem[] = [];
+            querySnapshot.forEach((doc) => {
+                tmp.push({ id: doc.id, ...doc.data() } as DBProblem);
+            });
+            setProblems(tmp);
+            setLoadingProblems(false);
+        };
+
+        getProblems();
+    }, [setLoadingProblems]);
+    return problems;
+}
