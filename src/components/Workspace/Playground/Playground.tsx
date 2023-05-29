@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PreferenceNav from './PreferenceNav/PreferenceNav';
 import Split from 'react-split'
 import CodeMirror from '@uiw/react-codemirror';
@@ -19,7 +19,8 @@ export interface ISettings {
 
 const Playground: React.FC<PlaygroundProps> = ({ problem }) => {
     const [activeTestCaseId, setActiveTestCaseId] = useState<number>(0);
-    let [userCode, setUserCode] = useState<string>(problem.starterCode);
+    // let [userCode, setUserCode] = useState<string>(problem.starterCode);
+
 
     const handleSubmit = () => {
 
@@ -32,7 +33,7 @@ const Playground: React.FC<PlaygroundProps> = ({ problem }) => {
                 <Split className='h-[calc(100vh-94px)]' direction='vertical' sizes={[60, 40]} minSize={60}>
                     <div className='w-full overflow-auto'>
                         <CodeMirror
-                            value={userCode}
+                            value={problem.starterCode}
                             theme={vscodeDark}
                             extensions={[javascript()]}
                             style={{ fontSize: 16 }}

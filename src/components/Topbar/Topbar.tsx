@@ -6,12 +6,40 @@ import { auth } from '@/firebase/firebase';
 import Logout from '../Buttons/Logout';
 import { toast } from 'react-toastify'
 import Timer from '../Timer/Timer';
+import { problems } from "@/utils/problems";
+import { Problem } from "@/utils/types/problem";
+import { useRouter } from 'next/router';
+import { useSetRecoilState } from "recoil";
+import { authModalState } from "@/atoms/authModalAtom";
+
 type TopbarProps = {
     problemPage?: boolean,
 };
 
+
 const Topbar: React.FC<TopbarProps> = ({ problemPage }) => {
     const [user] = useAuthState(auth);
+    const router = useRouter();
+    const setAuthModalState = useSetRecoilState(authModalState);
+
+    const handleProblemChange = (isForward: boolean) => {
+        const { order } = problems[router.query.pid as string] as Problem;
+        const direction = isForward ? 1 : -1;
+        const nextProblemOrder = order + direction;
+        const nextProblemKey = Object.keys(problems).find((key) => problems[key].order === nextProblemOrder);
+
+        if (isForward && !nextProblemKey) {
+            const firstProblemKey = Object.keys(problems).find((key) => problems[key].order === 1);
+            router.push(`/problems/${firstProblemKey}`);
+        } else if (!isForward && !nextProblemKey) {
+            const lastProblemKey = Object.keys(problems).find(
+                (key) => problems[key].order === Object.keys(problems).length
+            );
+            router.push(`/problems/${lastProblemKey}`);
+        } else {
+            router.push(`/problems/${nextProblemKey}`);
+        }
+    };
 
     return (
         <>
@@ -31,7 +59,7 @@ const Topbar: React.FC<TopbarProps> = ({ problemPage }) => {
                         <div className='flex items-center gap-4 flex-1 justify-center'>
                             <div
                                 className='flex items-center justify-center rounded bg-neutral-800 hover:bg-neutral-900 h-8 w-8 cursor-pointer'
-                                onClick={() => { }}
+                                onClick={() => { handleProblemChange(false) }}
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="gray" className="w-6 h-6">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
@@ -52,7 +80,7 @@ const Topbar: React.FC<TopbarProps> = ({ problemPage }) => {
                             </Link>
                             <div
                                 className='flex items-center justify-center rounded bg-neutral-800 hover:bg-neutral-900h-8 w-8 cursor-pointer'
-                                onClick={() => { }}
+                                onClick={() => { handleProblemChange(true) }}
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="gray" className="w-6 h-6">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />

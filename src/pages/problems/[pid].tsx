@@ -3,11 +3,13 @@ import Topbar from '../../components/Topbar/Topbar';
 import Workspace from '@/components/Workspace/Workspace';
 import { problems } from "@/utils/problems";
 import { Problem } from "@/utils/types/problem";
+import { useEffect } from 'react'
 type SingleProblemProps = {
     problem: Problem;
 };
 
 const SingleProblem: React.FC<SingleProblemProps> = ({ problem }) => {
+
 
     return (
         <>
