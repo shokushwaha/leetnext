@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Split from "react-split";
 import ProblemDescription from './ProblemDescription/ProblemDescription';
 import Playground from './Playground/Playground';
@@ -11,24 +11,21 @@ type WorkspaceProps = {
 
 const Workspace: React.FC<WorkspaceProps> = ({ problem }) => {
     const { width, height } = useWindowSize();
+    const [success, setSuccess] = useState<boolean>(false);
+    const [solved, setSolved] = useState<boolean>(false);
 
-    // useEffect(() => {
-    //     setTimeout(() => {
-
-    //     }, 1000)
-    // // }, [])
-    // setTimeout(fnc, 100);
-    // function fnc() {
-    //     window.location.reload();
-
-    // }
     return <Split className='split' minSize={0}>
-        {/* <div className='bg-neutral-800'> */}
 
-        <ProblemDescription problem={problem} />
-        <Playground problem={problem} />
-        {/* </div> */}
-        {/* <Confetti gravity={0.3} tweenDuration={4000} width={width - 1} height={height - 1} /> */}
+
+        <ProblemDescription problem={problem} _solved={solved} />
+        <div>
+
+            <Playground problem={problem} setSuccess={setSuccess} setSolved={setSolved} />
+
+            {success &&
+                <Confetti gravity={0.3} tweenDuration={4000} width={width - 1} height={height - 1} />
+            }
+        </div>
     </Split>
 
 }
