@@ -1,38 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## NextLeet
+An online platform to solve and practice DSA questions.
+
+## Features
+- **Problem Sets**: Browse through a wide range of coding problems organized into different categories and difficulty levels.
+- **Problem Descriptions**: Each problem comes with a detailed description, constraints, and examples.
+
+- **Test Cases**: Test your solutions with provided test cases to verify correctness.
+
+
+## Technologies Used
+* Next.js - Development of Applicatoin
+* Firebase - Storing all the details of the problems listed and users
+* Tailwind CSS - Styling
+
 
 ## Getting Started
+### Prerequisites
+- Make sure you have [Git](https://git-scm.com/) installed on your local machine.
+- You should have a working installation of your preferred programming language, such as Python or Java.
 
-First, run the development server:
+### Installation
 
-```bash
+ Clone the repository to your local machine and run npm install.
+
+
+
+### Running the Application
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+The application will be running on http://localhost:3000.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Screenshots
+![Screenshot 2023-05-30 141933](https://github.com/shokushwaha/leetnext/assets/109756367/22384a04-d6c3-4258-ab19-d4ac293dc072)
+![Screenshot 2023-05-30 141920](https://github.com/shokushwaha/leetnext/assets/109756367/e71e1d38-7cae-4fd0-ab85-d04c5682892f)
+![Screenshot 2023-05-30 141948](https://github.com/shokushwaha/leetnext/assets/109756367/60bd959b-da32-49d9-84dc-b3a05b04083a)
+![Screenshot 2023-05-30 141901](https://github.com/shokushwaha/leetnext/assets/109756367/75fbdfdf-851e-4489-b32a-aa561a7882b1)
+![Screenshot 2023-05-30 142038](https://github.com/shokushwaha/leetnext/assets/109756367/992799f6-7d88-4118-b191-a8ab94615683)
+![Screenshot 2023-05-30 142058](https://github.com/shokushwaha/leetnext/assets/109756367/4ee147c4-d194-4773-a962-48dafd928158)

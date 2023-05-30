@@ -5,6 +5,7 @@ import Signup from './Signup';
 import ResetPassword from './ResetPassword';
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useEffect } from 'react';
+import { motion } from 'framer-motion'
 type AuthModalProps = {
 
 };
@@ -14,7 +15,14 @@ const AuthModal: React.FC<AuthModalProps> = () => {
     const closeModal = useCloseModal();
     return (
         <>
-            <div className='absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-60'></div>
+
+            <motion.div
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0 }}
+                transition={{ duration: 0.2 }}
+
+                className='absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-60'></motion.div>
             <div className='w-full sm:w-[450px]  absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]  flex justify-center items-center'>
                 <div className='relative w-full h-full mx-auto flex items-center justify-center'>
                     <div className='rounded-lg shadow relative w-full bg-gray-200 mx-6'>
@@ -37,6 +45,7 @@ const AuthModal: React.FC<AuthModalProps> = () => {
                     </div>
                 </div>
             </div>
+
         </>)
 }
 export default AuthModal;
