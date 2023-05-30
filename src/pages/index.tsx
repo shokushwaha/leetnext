@@ -16,7 +16,7 @@ export default function Home() {
         <Topbar />
         <h1
           className='text-2xl text-center text-gray-700  font-medium uppercase mt-10 mb-5 pt-10'>
-          &ldquo; QUALITY OVER QUANTITY &rdquo; 👇
+          ⚡&ldquo; Get all Done &rdquo;⚡
         </h1>
 
         <div className='relative overflow-x-auto mx-auto px-6 pb-10'>

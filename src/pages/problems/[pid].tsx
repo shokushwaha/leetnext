@@ -4,12 +4,16 @@ import Workspace from '@/components/Workspace/Workspace';
 import { problems } from "@/utils/problems";
 import { Problem } from "@/utils/types/problem";
 import { useEffect } from 'react'
+import useHasMounted from '@/hooks/useHasMounted';
 type SingleProblemProps = {
     problem: Problem;
 };
 
 const SingleProblem: React.FC<SingleProblemProps> = ({ problem }) => {
 
+    const hasMounted = useHasMounted();
+    if (!hasMounted)
+        return null;
 
     return (
         <>

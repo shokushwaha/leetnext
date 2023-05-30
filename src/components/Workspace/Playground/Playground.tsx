@@ -33,6 +33,15 @@ const Playground: React.FC<PlaygroundProps> = ({ problem, setSuccess, setSolved 
     const {
         query: { pid },
     } = useRouter();
+
+
+    const [settings, setSettings] = useState<ISettings>({
+        fontSize: '16px',
+        settingsModalIsOpen: false,
+        dropdownIsOpen: false,
+    });
+
+
     const handleSubmit = async () => {
         if (!user) {
             toast.error("You have to login to perform this action", { position: 'top-center', autoClose: 2000 });
@@ -85,22 +94,36 @@ const Playground: React.FC<PlaygroundProps> = ({ problem, setSuccess, setSolved 
 
 
     }
+
+
+    useEffect(() => {
+        const code = localStorage.getItem(`code-${pid}`);
+        if (user) {
+            setUserCode(code ? JSON.parse(code) : problem.starterCode);
+        }
+        else {
+            setUserCode(problem.starterCode);
+        }
+    }, [pid, user, problem.starterCode]);
+
+
     const onChange = (value: string) => {
         setUserCode(value);
+        localStorage.setItem(`code-${pid}`, JSON.stringify(value));
     }
 
     return (
         <>
             <div className='flex flex-col bg-neutral-800 relative overflow-x-hidden'>
 
-                <PreferenceNav />
+                <PreferenceNav settings={settings} setSettings={setSettings} />
                 <Split className='h-[calc(100vh-94px)]' direction='vertical' sizes={[60, 40]} minSize={60}>
                     <div className='w-full overflow-auto'>
                         <CodeMirror
-                            value={problem.starterCode}
+                            value={userCode}
                             theme={vscodeDark}
                             extensions={[javascript()]}
-                            style={{ fontSize: 16 }}
+                            style={{ fontSize: settings.fontSize }}
                             onChange={onChange}
                         />
                     </div>

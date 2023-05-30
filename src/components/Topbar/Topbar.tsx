@@ -44,21 +44,22 @@ const Topbar: React.FC<TopbarProps> = ({ problemPage }) => {
     return (
         <>
 
-            <nav className='relative flex h-[70px] w-full shrink-0 items-center px-5 bg-neutral-800  '>
+            <nav className='relative flex h-[70px] w-full shrink-0 items-center px-5 bg-gradient-to-r from-gray-800 via-neutral-700 to-gray-900'>
                 <div className={`flex w-full items-center justify-between ${!problemPage ? "max-w-[1200px] mx-auto" : ""}`}>
                     <Link href={'/'} className='flex items-center justify-center h-20  gap-2' >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#facc15" className="w-10 h-10">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
                         </svg>
-                        <span className='text-yellow-400 font-bold text-xl md:text-2xl font-poppins' >NEXTLEET</span>
+                        <span className='
+                         from-purple-600 via-pink-400 to-yellow-400 bg-gradient-to-r bg-clip-text text-transparent text-6xl md:text-3xl font-extrabold ' >NEXTLEET</span>
                     </Link>
 
 
 
                     {problemPage && (
-                        <div className='flex items-center gap-4 flex-1 justify-center'>
+                        <div className='flex items-center gap-4 flex-1 justify-center pl-80'>
                             <div
-                                className='flex items-center justify-center rounded bg-neutral-800 hover:bg-neutral-900 h-8 w-8 cursor-pointer'
+                                className='flex items-center justify-center rounded bg-neutral-600 hover:bg-neutral-900 h-8 w-8 cursor-pointer'
                                 onClick={() => { handleProblemChange(false) }}
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="gray" className="w-6 h-6">
@@ -79,7 +80,7 @@ const Topbar: React.FC<TopbarProps> = ({ problemPage }) => {
                                 <p>Problem List</p>
                             </Link>
                             <div
-                                className='flex items-center justify-center rounded bg-neutral-800 hover:bg-neutral-900h-8 w-8 cursor-pointer'
+                                className='flex items-center justify-center rounded bg-neutral-600 hover:bg-neutral-900 h-8 w-8 cursor-pointer'
                                 onClick={() => { handleProblemChange(true) }}
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="gray" className="w-6 h-6">
